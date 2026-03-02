@@ -217,6 +217,9 @@ p {
   font-weight: 600;
   font-size: 1.125rem;
   transition: color 0.3s ease;
+}
+
+.nav-links a:not(.btn) {
   padding: 0.5rem;
 }
 
