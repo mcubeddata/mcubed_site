@@ -33,6 +33,45 @@ document.addEventListener("DOMContentLoaded", () => {
     if (bannerText) bannerText.textContent = info.label;
   }
   // On non-Android (desktop/iOS) just show all cards without recommendation.
+  // ----------- Mobile Menu Toggle -----------
+  const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+  const navLinks = document.getElementById("navLinks");
+  const navOverlay = document.getElementById("navOverlay");
+
+  function toggleMenu() {
+    mobileMenuToggle.classList.toggle("active");
+    navLinks.classList.toggle("active");
+    navOverlay.classList.toggle("active");
+    document.body.style.overflow = navLinks.classList.contains("active") ? "hidden" : "";
+  }
+
+  function closeMenu() {
+    mobileMenuToggle.classList.remove("active");
+    navLinks.classList.remove("active");
+    navOverlay.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener("click", toggleMenu);
+  }
+
+  if (navOverlay) {
+    navOverlay.addEventListener("click", closeMenu);
+  }
+
+  // Close menu when clicking a link
+  navLinks?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  // Close menu on window resize if desktop
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 992) {
+      closeMenu();
+    }
+  });
+
   // ----------- Navbar Scroll Effect -----------
   const navbar = document.querySelector(".navbar");
 
