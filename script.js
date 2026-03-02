@@ -1,4 +1,38 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // ----------- APK Architecture Auto-Detection -----------
+  function detectAndroidArch() {
+    const ua = navigator.userAgent.toLowerCase();
+    if (!ua.includes("android")) return null;
+    if (ua.includes("x86_64") || ua.includes("x86")) return "x86_64";
+    // Most Android phones since ~2017 are arm64-v8a.
+    // There's no reliable UA hint to distinguish arm64 vs armv7, so
+    // we use Android version as a heuristic: Android 8+ → arm64.
+    const match = ua.match(/android (\d+)/);
+    const androidVersion = match ? parseInt(match[1]) : 0;
+    return androidVersion >= 8 ? "arm64-v8a" : "armeabi-v7a";
+  }
+
+  const archMap = {
+    "arm64-v8a":    { cardId: "card-arm64", badgeId: "badge-arm64", label: "ARM64-v8a (modern phones) is recommended for your device." },
+    "armeabi-v7a":  { cardId: "card-armv7", badgeId: "badge-armv7", label: "ARMv7 (older phones) is recommended for your device." },
+    "x86_64":       { cardId: "card-x86",   badgeId: "badge-x86",   label: "x86_64 (Chromebook / emulator) is recommended for your device." },
+  };
+
+  const detectedArch = detectAndroidArch();
+  const banner = document.getElementById("recommended-banner");
+  const bannerText = document.getElementById("recommended-text");
+
+  if (detectedArch && archMap[detectedArch]) {
+    const info = archMap[detectedArch];
+    const card = document.getElementById(info.cardId);
+    const badge = document.getElementById(info.badgeId);
+
+    if (card) card.classList.add("recommended");
+    if (badge) badge.style.display = "inline-block";
+    if (banner) banner.style.display = "flex";
+    if (bannerText) bannerText.textContent = info.label;
+  }
+  // On non-Android (desktop/iOS) just show all cards without recommendation.
   // ----------- Navbar Scroll Effect -----------
   const navbar = document.querySelector(".navbar");
 

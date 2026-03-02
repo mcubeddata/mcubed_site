@@ -447,6 +447,120 @@ p {
   background-color: var(--primary);
 }
 
+/* ── APK Download Cards ───────────────────────────────────────────────────── */
+.recommended-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin: 16px 0 24px;
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.recommended-banner i { font-size: 1.1rem; }
+
+.apk-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 8px 0 24px;
+}
+
+@media (max-width: 768px) {
+  .apk-options { grid-template-columns: 1fr; }
+}
+
+.apk-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.apk-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+}
+
+.apk-card.recommended {
+  border-color: var(--primary);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+}
+
+.apk-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.apk-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(0, 229, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: var(--primary);
+}
+
+.apk-badge {
+  background: var(--primary);
+  color: #000;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.apk-info h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.apk-info p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.apk-size {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.apk-download-btn {
+  width: 100%;
+  text-align: center;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  border-radius: 10px;
+}
+
+.github-releases-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: opacity 0.2s;
+}
+
+.github-releases-link:hover { opacity: 0.75; }
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+
 .version-info {
   font-size: 0.875rem;
   margin-top: 1.5rem;

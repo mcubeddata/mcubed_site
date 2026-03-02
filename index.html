@@ -168,10 +168,68 @@
         <p>
           Join thousands of players already competing on MCubed. Download the app today and get in the game.
         </p>
-        <a href="#" class="btn btn-primary btn-large glowing-btn" download>
-          <i class="fab fa-android"></i> Download for Android
-        </a>
-        <p class="version-info">Version 1.0.0 | Requires Android 8.0+</p>
+
+        <div id="recommended-banner" class="recommended-banner" style="display:none">
+          <i class="fas fa-bolt"></i>
+          <span id="recommended-text">Detecting your device...</span>
+        </div>
+
+        <div class="apk-options">
+          <div class="apk-card glass" id="card-arm64">
+            <div class="apk-card-header">
+              <div class="apk-icon"><i class="fas fa-mobile-alt"></i></div>
+              <span class="apk-badge" id="badge-arm64" style="display:none">Recommended</span>
+            </div>
+            <div class="apk-info">
+              <h4>ARM64-v8a</h4>
+              <p>Modern Android phones (2017+)</p>
+              <span class="apk-size"><i class="fas fa-file-archive"></i> 30.2 MB</span>
+            </div>
+            <a href="https://github.com/mcubeddata/mcubed_site/releases/download/v1.0.0/app-arm64-v8a-release.apk"
+               class="btn btn-primary apk-download-btn">
+              <i class="fas fa-download"></i> Download
+            </a>
+          </div>
+
+          <div class="apk-card glass" id="card-armv7">
+            <div class="apk-card-header">
+              <div class="apk-icon"><i class="fas fa-mobile"></i></div>
+              <span class="apk-badge" id="badge-armv7" style="display:none">Recommended</span>
+            </div>
+            <div class="apk-info">
+              <h4>ARMv7</h4>
+              <p>Older Android phones (pre-2017)</p>
+              <span class="apk-size"><i class="fas fa-file-archive"></i> 28.1 MB</span>
+            </div>
+            <a href="https://github.com/mcubeddata/mcubed_site/releases/download/v1.0.0/app-armeabi-v7a-release.apk"
+               class="btn btn-secondary apk-download-btn">
+              <i class="fas fa-download"></i> Download
+            </a>
+          </div>
+
+          <div class="apk-card glass" id="card-x86">
+            <div class="apk-card-header">
+              <div class="apk-icon"><i class="fas fa-laptop"></i></div>
+              <span class="apk-badge" id="badge-x86" style="display:none">Recommended</span>
+            </div>
+            <div class="apk-info">
+              <h4>x86_64</h4>
+              <p>Chromebooks &amp; emulators</p>
+              <span class="apk-size"><i class="fas fa-file-archive"></i> 31.6 MB</span>
+            </div>
+            <a href="https://github.com/mcubeddata/mcubed_site/releases/download/v1.0.0/app-x86_64-release.apk"
+               class="btn btn-secondary apk-download-btn">
+              <i class="fas fa-download"></i> Download
+            </a>
+          </div>
+        </div>
+
+        <p class="version-info">Version 1.0.0 &nbsp;|&nbsp; Requires Android 8.0+</p>
+        <p class="version-info" style="margin-top: 8px">
+          <a href="https://github.com/mcubeddata/mcubed_site/releases" target="_blank" class="github-releases-link">
+            <i class="fab fa-github"></i> View all releases on GitHub
+          </a>
+        </p>
       </div>
     </section>
 
