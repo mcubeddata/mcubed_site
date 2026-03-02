@@ -197,7 +197,7 @@ p {
   height: 100vh;
   background: var(--glass-bg);
   border-left: 1px solid var(--glass-border);
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -209,6 +209,7 @@ p {
 
 .nav-links.active {
   right: 0;
+  display: flex;
 }
 
 .nav-links a {
@@ -795,6 +796,7 @@ p {
     height: auto;
     background: transparent;
     border: none;
+    display: flex;
     flex-direction: row;
     padding: 0;
     gap: 2rem;
