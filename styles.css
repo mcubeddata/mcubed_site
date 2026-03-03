@@ -793,6 +793,7 @@ p {
   .nav-links {
     position: static;
     width: auto;
+    max-width: none;
     height: auto;
     background: transparent;
     border: none;
@@ -800,6 +801,7 @@ p {
     flex-direction: row;
     padding: 0;
     gap: 2rem;
+    align-items: center;
   }
   
   .nav-overlay {
