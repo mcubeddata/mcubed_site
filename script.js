@@ -33,6 +33,40 @@ document.addEventListener("DOMContentLoaded", () => {
     if (bannerText) bannerText.textContent = info.label;
   }
   // On non-Android (desktop/iOS) just show all cards without recommendation.
+  async function loadLatestReleaseMetadata() {
+    const versionInfo = document.getElementById("releaseVersionInfo");
+    const sizeLabels = document.querySelectorAll(".apk-size[data-asset-name]");
+
+    try {
+      const response = await fetch("https://api.github.com/repos/mcubeddata/mcubed_site/releases/latest", {
+        headers: { Accept: "application/vnd.github+json" },
+      });
+
+      if (!response.ok) return;
+
+      const release = await response.json();
+      const tag = (release.tag_name || "").replace(/^v/, "");
+      if (versionInfo && tag) {
+        versionInfo.textContent = `Version ${tag} | Requires Android 8.0+`;
+      }
+
+      const assets = Array.isArray(release.assets) ? release.assets : [];
+      const assetMap = new Map(assets.map((asset) => [asset.name, asset]));
+
+      sizeLabels.forEach((label) => {
+        const assetName = label.getAttribute("data-asset-name");
+        const asset = assetMap.get(assetName);
+        if (!asset || typeof asset.size !== "number") return;
+
+        const mb = asset.size / (1024 * 1024);
+        label.innerHTML = `<i class="fas fa-file-archive"></i> ${mb.toFixed(1)} MB`;
+      });
+    } catch (error) {
+      console.warn("Failed to load latest release metadata", error);
+    }
+  }
+
+  loadLatestReleaseMetadata();
   // ----------- Mobile Menu Toggle -----------
   const mobileMenuToggle = document.getElementById("mobileMenuToggle");
   const navLinks = document.getElementById("navLinks");
@@ -146,3 +180,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+
