@@ -67,6 +67,63 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   loadLatestReleaseMetadata();
+
+  async function loadChangelog() {
+    const list = document.getElementById("changelog-list");
+    if (!list) return;
+
+    try {
+      const response = await fetch(
+        "https://api.github.com/repos/mcubeddata/mcubed_site/releases?per_page=5",
+        { headers: { Accept: "application/vnd.github+json" } }
+      );
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      const releases = await response.json();
+      if (!Array.isArray(releases) || releases.length === 0) {
+        list.innerHTML = '<p style="text-align:center;color:var(--text-muted)">No releases yet.</p>';
+        return;
+      }
+
+      list.innerHTML = releases.map((r) => {
+        const tag = (r.tag_name || "Unknown").replace(/^v/, "");
+        const rawBody = (r.body || "").trim();
+        const body = rawBody || "No release notes available.";
+        const date = r.published_at
+          ? new Date(r.published_at).toLocaleDateString("en-US", {
+              year: "numeric", month: "short", day: "numeric",
+            })
+          : "";
+
+        const lines = body.replace(/\r\n/g, "\n").split("\n").filter((l) => l.trim());
+        const formattedLines = lines.map((line) =>
+          /^[*\-]\s/.test(line)
+            ? `<li>${line.replace(/^[*\-]\s*/, "")}</li>`
+            : `<p>${line}</p>`
+        );
+        const hasList = formattedLines.some((l) => l.startsWith("<li>"));
+        const bodyHtml = hasList
+          ? `<ul>${formattedLines.join("")}</ul>`
+          : formattedLines.join("");
+
+        return `
+          <div class="glass changelog-card fade-in-up">
+            <div class="changelog-card-header">
+              <span class="changelog-tag"><i class="fas fa-tag"></i> v${tag}</span>
+              ${date ? `<span class="changelog-date">${date}</span>` : ""}
+            </div>
+            <div class="changelog-body">${bodyHtml}</div>
+          </div>`;
+      }).join("");
+
+      list.querySelectorAll(".fade-in-up").forEach((el) => observer.observe(el));
+    } catch (err) {
+      console.warn("Failed to load changelog", err);
+      list.innerHTML = '<p style="text-align:center;color:var(--text-muted)">Could not load release notes.</p>';
+    }
+  }
+
+  loadChangelog();
   // ----------- Mobile Menu Toggle -----------
   const mobileMenuToggle = document.getElementById("mobileMenuToggle");
   const navLinks = document.getElementById("navLinks");
