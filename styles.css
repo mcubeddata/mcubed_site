@@ -775,6 +775,16 @@ p {
   font-size: 0.8rem;
 }
 
+.changelog-section-header {
+  color: var(--secondary) !important;
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.75rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
 .changelog-body p {
   color: var(--text-muted);
   font-size: 0.9rem;

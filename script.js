@@ -95,16 +95,25 @@ document.addEventListener("DOMContentLoaded", () => {
             })
           : "";
 
-        const lines = body.replace(/\r\n/g, "\n").split("\n").filter((l) => l.trim());
-        const formattedLines = lines.map((line) =>
-          /^[*\-]\s/.test(line)
-            ? `<li>${line.replace(/^[*\-]\s*/, "")}</li>`
-            : `<p>${line}</p>`
-        );
-        const hasList = formattedLines.some((l) => l.startsWith("<li>"));
-        const bodyHtml = hasList
-          ? `<ul>${formattedLines.join("")}</ul>`
-          : formattedLines.join("");
+        // Parse markdown into sections with headers and bullet lists
+        const lines = body.replace(/\r\n/g, "\n").split("\n");
+        let bodyHtml = "";
+        let inList = false;
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed) continue;
+          if (/^###\s/.test(trimmed)) {
+            if (inList) { bodyHtml += "</ul>"; inList = false; }
+            bodyHtml += `<p class="changelog-section-header">${trimmed.replace(/^###\s*/, "")}</p>`;
+          } else if (/^[*\-]\s/.test(trimmed)) {
+            if (!inList) { bodyHtml += "<ul>"; inList = true; }
+            bodyHtml += `<li>${trimmed.replace(/^[*\-]\s*/, "")}</li>`;
+          } else {
+            if (inList) { bodyHtml += "</ul>"; inList = false; }
+            bodyHtml += `<p>${trimmed}</p>`;
+          }
+        }
+        if (inList) bodyHtml += "</ul>";
 
         return `
           <div class="glass changelog-card fade-in-up">
