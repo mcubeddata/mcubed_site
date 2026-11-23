@@ -1045,3 +1045,20 @@ p {
   }
 }
 
+
+/* Become an Agent */
+.agents-cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 36px;
+}
+.agents-cta .btn {
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .agents-cta .btn {
+    width: 100%;
+  }
+}
